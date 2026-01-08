@@ -1,0 +1,80 @@
+openapi: 3.0.0
+info:
+  title: Bajaj Broking Trading API
+  description: Systematic API documentation for Trading SDK
+  version: 1.0.0
+
+# This adds the "Authorize" button to Swagger
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - BearerAuth: []
+
+paths:
+  # --- AUTH SECTION ---
+  /api/v1/login:
+    post:
+      tags: [Authentication]
+      summary: Get JWT Token
+      responses:
+        '200':
+          description: OK
+
+  # --- INSTRUMENTS ---
+  /api/v1/instruments:
+    get:
+      tags: [Market Data]
+      summary: Fetch list of tradable instruments
+      responses:
+        '200':
+          description: OK
+
+  # --- TRADING SECTION ---
+  /api/v1/orders:
+    post:
+      tags: [Trading]
+      summary: Place a New Order (BUY/SELL)
+      responses:
+        '200':
+          description: OK
+  /api/v1/orders/{orderId}:
+    get:
+      tags: [Trading]
+      summary: Fetch Order Status
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+
+  # --- HISTORY & PORTFOLIO ---
+  /api/v1/trades:
+    get:
+      tags: [Account]
+      summary: Fetch list of executed trades
+      responses:
+        '200':
+          description: OK
+  /api/v1/portfolio:
+    get:
+      tags: [Account]
+      summary: Fetch current portfolio holdings
+      responses:
+        '200':
+          description: OK
+  /api/v1/profile:
+    get:
+      tags: [Account]
+      summary: Fetch profile details
+      responses:
+        '200':
+          description: OK
