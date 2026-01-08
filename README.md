@@ -1,2 +1,77 @@
-📈 Bajaj Broking Trading SDKA professional-grade backend trading system built with Kotlin and Ktor. This SDK provides a systematic REST API for managing stock instruments, executing trades with persistent storage, and tracking real-time portfolio holdings.🚀 Key FeaturesSecure Authentication: Implements JWT (JSON Web Token) bearer scheme for all trading endpoints.Persistent Storage: Powered by an H2 Relational Database with Exposed ORM to ensure your trades and portfolio survive server restarts.Systematic Trading: Supports MARKET and LIMIT order styles with mandatory price validation for limit orders.Smart Portfolio: Automatically calculates current holdings by aggregating BUY and SELL transactions.Interactive Documentation: Integrated Swagger UI for real-time API testing without external tools.🛠 Tech StackComponentTechnologyLanguageKotlinServer FrameworkKtor 3.xDatabaseH2 (Embedded / Persistent)ORMJetBrains ExposedSecurityJWT (HS256)SerializationKotlinx Serialization (JSON)📡 API Documentation🔓 Public EndpointsPOST /api/v1/login: Use this to generate your JWT Bearer Token.GET /api/v1/instruments: Fetch the list of available stocks (Reliance, TCS, etc.).🔐 Protected Endpoints (Requires Authorization Header)POST /api/v1/orders: Place a new trade. Requires symbol, quantity, type (BUY/SELL), and style.GET /api/v1/portfolio: Get a summarized view of your current stocks (Math: Total Buy - Total Sell).GET /api/v1/trades: View your full transaction history.GET /api/v1/orders/{orderId}: Check the status of a specific order.🧪 How to Run & Test1. Start the ServerRun the following command in your terminal:Bash./gradlew run
-2. Open Swagger UIOnce started, navigate to your browser:👉 http://localhost:8080/swagger3. Workflow for TestingExecute the Login endpoint to receive a token.Click the Authorize button at the top and paste: Bearer <your_token>.Place a BUY order for RELIANCE.Execute a SELL order for a smaller quantity.Check the Portfolio to see the remaining balance updated automatically.📂 Project StructureApplication.kt: Entry point and Database/Auth configuration.Models.kt: Data structures and Database Schema (TradesTable).TradingRepository.kt: The business engine handling DB transactions and Portfolio math.Routing.kt: API path definitions and Swagger integration.
+# 📈 Kotlin Ktor Trading Backend SDK
+
+A **professional-grade backend trading system** built with **Kotlin and Ktor**.  
+This SDK exposes a **systematic REST API** for managing stock instruments, executing trades with persistent storage, and tracking real-time portfolio holdings.
+
+---
+
+## 🚀 Key Features
+
+- 🔐 **Secure Authentication**  
+  JWT (JSON Web Token) Bearer authentication for all protected trading endpoints.
+
+- 💾 **Persistent Storage**  
+  H2 relational database with JetBrains Exposed ORM ensures data survives server restarts.
+
+- 📊 **Systematic Trading Engine**  
+  Supports MARKET and LIMIT orders with strict price validation for LIMIT orders.
+
+- 🧠 **Smart Portfolio Calculation**  
+  Automatically calculates holdings using aggregated BUY − SELL transactions.
+
+- 📘 **Interactive API Documentation**  
+  Swagger UI integrated for live API testing.
+
+---
+
+## 🧩 Technology Stack
+
+| Component        | Technology                     |
+|------------------|--------------------------------|
+| Language         | Kotlin                         |
+| Server Framework | Ktor 3.x                       |
+| Database         | H2 (Embedded / Persistent)     |
+| ORM              | JetBrains Exposed              |
+| Security         | JWT (HS256)                    |
+| Serialization    | Kotlinx Serialization (JSON)   |
+
+---
+
+## 📡 API Documentation
+
+### 🔓 Public Endpoints (No Token Required)
+
+| Endpoint               | Method | Description |
+|------------------------|--------|-------------|
+| `/api/v1/login`        | POST   | Authenticate and receive JWT Bearer token |
+| `/api/v1/instruments`  | GET    | Fetch available market instruments |
+
+---
+
+### 🔐 Protected Endpoints  
+**Authorization Header Required:**  
+`Authorization: Bearer <token>`
+
+| Endpoint                   | Method | Description |
+|----------------------------|--------|-------------|
+| `/api/v1/orders`           | POST   | Place BUY/SELL order (MARKET/LIMIT) |
+| `/api/v1/portfolio`        | GET    | View current holdings summary |
+| `/api/v1/trades`           | GET    | Fetch complete trade history |
+| `/api/v1/orders/{orderId}` | GET    | Get real-time order status |
+| `/api/v1/profile`          | GET    | Fetch user profile & exchange permissions |
+
+---
+
+## 🧪 How to Run & Test
+
+### 1️⃣ Start the Server
+
+**Prerequisites**
+- JDK 17+
+- Gradle
+- IntelliJ IDEA (recommended)
+
+From the project root directory, run:
+
+```bash
+./gradlew run
